@@ -12,6 +12,7 @@ namespace AOGameTest.Tests
         [SetUp]
         public void Setup()
         {
+            BasePage.SetupAdbReverse();
             altDriver = new AltDriver(host: "127.0.0.1", port: 13000, appName: "__default__");
             mainMenuPage = new MainMenuPage(altDriver);
         }
