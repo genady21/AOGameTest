@@ -24,6 +24,9 @@ public class TutorialCombatTests
     public void CompleteStarterTutorial()
     {
         new TutorialPage(altDriver!).TutorialStep1();
+        new TutorialPage(altDriver!).TutorialStep2();
+        new TutorialPage(altDriver!).TutorialStep3();
+        new TutorialPage(altDriver!).TutorialStep4();
         
     }
     
