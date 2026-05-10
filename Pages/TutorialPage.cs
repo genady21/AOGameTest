@@ -6,10 +6,20 @@ namespace AOGameTest.Pages;
 
 public class TutorialPage: BasePage
 {
-    public string SlotPath = "/Canvas/RoundUI(Clone)/SafeArea/PlayerPanel(Clone)/Stuff/Top/Arrows/ActiveArrowSlot/Slot";
-    public string SlotPathLaser = "/Canvas/RoundUI(Clone)/SafeArea/PlayerPanel(Clone)/Stuff/Top/Arrows/ArrowScrollPanel/Mask/ScrollView/Content/SlotArrow_Round(Clone)/Slot/Arrows/Laser";
-    public string ButtonReceivingFireArrow = "/Canvas/OverlayPopupController/InformationNewAward_OverlayPopup(Clone)/Panel/Content/FirstRewardInformationNewAwardContent(Clone)/Panel/Ok_btn";
-    public string EndTutorialBattleN2 = "/Canvas/MenuUI(Clone)/VersusScreen/SafeArea/Bottom/NextBtn";
+    public string SlotPath = 
+        "/Canvas/RoundUI(Clone)/SafeArea/PlayerPanel(Clone)/Stuff/Top/Arrows/ActiveArrowSlot/Slot";
+    public string SlotPathLaser = 
+        "/Canvas/RoundUI(Clone)/SafeArea/PlayerPanel(Clone)/Stuff/Top/Arrows/ArrowScrollPanel/Mask/ScrollView/Content/SlotArrow_Round(Clone)/Slot/Arrows/Laser";
+    public string ButtonReceivingFireArrow = 
+        "/Canvas/OverlayPopupController/InformationNewAward_OverlayPopup(Clone)/Panel/Content/FirstRewardInformationNewAwardContent(Clone)/Panel/Ok_btn";
+    public string ButtonEndTutorialBattleN2 = 
+        "/Canvas/MenuUI(Clone)/VersusScreen/SafeArea/Bottom/NextBtn";
+    public string ButtonSelectDefaultSkin = 
+        "/Canvas/MenuUI(Clone)/CustomizationSetSelectionPopup/Panel/RootSelection/SectionGrid/TutorialCustomizationElement(Clone)/Content/TapZone/ItemSimple/LeaveButton";
+
+    /// <summary>Что показать после «Оставить» на попапе скина (замените, если уходит не в главное меню).</summary>
+    public string PathAfterSelectDefaultSkin =
+        "/Canvas/MenuUI(Clone)/BottomMainScreen/SafeArea/Bottom/ArenasButton";
 
     public TutorialPage(AltDriver driver) : base(driver) { }
     
@@ -101,18 +111,53 @@ public class TutorialPage: BasePage
         Thread.Sleep(5000);
         Fire();
         Thread.Sleep(15000);
-        Fire(); 
-        
+        Fire();
+        // Дать игре дорисовать конец боя и показать VersusScreen с Next, иначе Step4 стартует слишком рано.
+        Thread.Sleep(8000);
     }
 
 
     public void TutorialStep4()
     {
-        var butonEndBattle = AltDriver.WaitForObject(By.PATH, EndTutorialBattleN2, timeout: 30);
-        Assert.That(butonEndBattle.enabled, Is.True);
-        Thread.Sleep(10000);
-        butonEndBattle.Tap();
+        TestContext.WriteLine("TutorialStep4: Versus Next → ждём «{0}»", ButtonSelectDefaultSkin);
+        const int maxTries = 4;
+        const int waitNextScreenSec = 25;
+
+        for (var attempt = 1; attempt <= maxTries; attempt++)
+        {
+            var next = AltDriver.WaitForObject(By.PATH, ButtonEndTutorialBattleN2, timeout: 45);
+            Assert.That(next.enabled, Is.True);
+            AltDriver.Tap(next.GetScreenPosition(), count: 1, interval: 0.1f, wait: true);
+            Thread.Sleep(3000);
+
+            try
+            {
+                var marker = AltDriver.WaitForObject(
+                    By.PATH,
+                    ButtonSelectDefaultSkin,
+                    enabled: true,
+                    timeout: waitNextScreenSec);
+                Assert.That(marker.enabled, Is.True);
+                // Сразу жмём «Оставить», пока попап стабилен; иначе к шагу 5 дерево уже другое — WaitForObject снова не найдёт тот же путь.
+                AltDriver.Tap(marker.GetScreenPosition(), count: 1, interval: 0.1f, wait: true);
+                return;
+            }
+            catch (Exception ex)
+            {
+                TestContext.WriteLine(
+                    $"Тап #{attempt}: за {waitNextScreenSec} не появился маркер следующего экрана ({ButtonSelectDefaultSkin}). {ex.Message}");
+            }
+        }
+
+        Assert.Fail(
+            $"После {maxTries} тапов по Next не дождались элемента следующего шага: {ButtonSelectDefaultSkin}.");
     }
 
-
+    public void TutorialStep5()
+    {
+        // // «Оставить» уже нажато в конце шага 4. Здесь — подтверждение следующего экрана.
+        // Thread.Sleep(1500);
+        // var nextScreen = AltDriver.WaitForObject(By.PATH, PathAfterSelectDefaultSkin, timeout: 45);
+        // Assert.That(nextScreen.enabled, Is.True, PathAfterSelectDefaultSkin);
+    }
 }

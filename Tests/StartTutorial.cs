@@ -21,13 +21,17 @@ public class TutorialCombatTests
     }
 
     [Test]
+    [Timeout(600_000)]
     public void CompleteStarterTutorial()
     {
-        new TutorialPage(altDriver!).TutorialStep1();
-        new TutorialPage(altDriver!).TutorialStep2();
-        new TutorialPage(altDriver!).TutorialStep3();
-        new TutorialPage(altDriver!).TutorialStep4();
+        var page = new TutorialPage(altDriver!);
         
+        page.TutorialStep1();
+        page.TutorialStep2();
+        page.TutorialStep3();
+        page.TutorialStep4();
+        page.TutorialStep5();
+       
     }
     
 }
