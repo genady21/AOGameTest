@@ -2,3 +2,20 @@ bin/
 obj/
 .idea/
 *.user
+
+# Allure Report
+allure-results/
+allure-report/
+
+# Visual Studio / Rider
+.vs/
+*.suo
+*.userosscache
+*.sln.docstates
+
+# Тестовые артефакты (VSTest / Coverlet)
+TestResults/
+coverage*.json
+coverage*.xml
+*.coverage
+*.coveragexml

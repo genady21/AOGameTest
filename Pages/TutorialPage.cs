@@ -78,7 +78,7 @@ public class TutorialPage: BasePage
         {
             var slot = AltDriver.WaitForObject(By.PATH, SlotPath, timeout: 20);
             slot.Tap();
-            TestContext.WriteLine("Слот найден");
+            TestContext.Out.WriteLine("Слот найден");
             Thread.Sleep(2000);
 
             //Проверяем или лазерная есть на экране
@@ -119,7 +119,7 @@ public class TutorialPage: BasePage
 
     public void TutorialStep4()
     {
-        TestContext.WriteLine("TutorialStep4: Versus Next → ждём «{0}»", ButtonSelectDefaultSkin);
+        TestContext.Out.WriteLine("TutorialStep4: Versus Next → ждём «{0}»", ButtonSelectDefaultSkin);
         const int maxTries = 4;
         const int waitNextScreenSec = 25;
 
@@ -144,7 +144,7 @@ public class TutorialPage: BasePage
             }
             catch (Exception ex)
             {
-                TestContext.WriteLine(
+                TestContext.Out.WriteLine(
                     $"Тап #{attempt}: за {waitNextScreenSec} не появился маркер следующего экрана ({ButtonSelectDefaultSkin}). {ex.Message}");
             }
         }

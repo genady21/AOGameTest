@@ -1,8 +1,11 @@
+using Allure.NUnit;
+using Allure.NUnit.Attributes;
 using AltTester.AltTesterSDK.Driver;
 using AOGameTest.Pages;
 
 namespace AOGameTest.Tests;
 
+[AllureNUnit]
 public class TutorialCombatTests
 {
     private AltDriver? altDriver;
@@ -21,7 +24,7 @@ public class TutorialCombatTests
     }
 
     [Test]
-    [Timeout(600_000)]
+    [CancelAfter(600_000)]
     public void CompleteStarterTutorial()
     {
         var page = new TutorialPage(altDriver!);
