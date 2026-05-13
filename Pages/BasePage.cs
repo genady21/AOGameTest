@@ -5,7 +5,7 @@ namespace AOGameTest.Pages
 {
     public abstract class BasePage
     {
-        protected AltDriver AltDriver;
+        protected AltDriver AltDriver { get; }
 
         protected BasePage(AltDriver altDriver)
         {

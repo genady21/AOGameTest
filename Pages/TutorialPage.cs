@@ -16,10 +16,7 @@ public class TutorialPage: BasePage
         "/Canvas/MenuUI(Clone)/VersusScreen/SafeArea/Bottom/NextBtn";
     public string ButtonSelectDefaultSkin = 
         "/Canvas/MenuUI(Clone)/CustomizationSetSelectionPopup/Panel/RootSelection/SectionGrid/TutorialCustomizationElement(Clone)/Content/TapZone/ItemSimple/LeaveButton";
-
-    /// <summary>Что показать после «Оставить» на попапе скина (замените, если уходит не в главное меню).</summary>
-    public string PathAfterSelectDefaultSkin =
-        "/Canvas/MenuUI(Clone)/BottomMainScreen/SafeArea/Bottom/ArenasButton";
+    
 
     public TutorialPage(AltDriver driver) : base(driver) { }
     
@@ -155,9 +152,6 @@ public class TutorialPage: BasePage
 
     public void TutorialStep5()
     {
-        // // «Оставить» уже нажато в конце шага 4. Здесь — подтверждение следующего экрана.
-        // Thread.Sleep(1500);
-        // var nextScreen = AltDriver.WaitForObject(By.PATH, PathAfterSelectDefaultSkin, timeout: 45);
-        // Assert.That(nextScreen.enabled, Is.True, PathAfterSelectDefaultSkin);
+
     }
 }
