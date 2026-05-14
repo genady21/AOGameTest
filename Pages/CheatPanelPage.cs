@@ -12,22 +12,39 @@ namespace AOGameTest.Pages;
 
 public class CheatPanelPage: BasePage
 {
-    private const string CheatPanelRootPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab";
-    private const string OpenCheatButtonPath = "/SRDebugger/Trigger/Trigger(Clone)/SR_ButtonContainer/SR_TapButton";
     
-    private const string HoursValuePath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_Contents/SR_Label";   // Text или TMP с цифрой
-    private const string HoursDecPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_ButtonDown";       // левая стрелка
-    private const string HoursIncPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_ButtonUp>";       // правая стрелка
+    private const string CheatPanelRootPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab";
+    private const string OpenCheatButtonPath = 
+        "/SRDebugger/Trigger/Trigger(Clone)/SR_ButtonContainer/SR_TapButton";
+    private const string CloseCheatButtonPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Header/SR_MenuBar/SR_CloseButton/SR_BG";
+    //время
+    private const string HoursValuePath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_Contents";   // Text или TMP с цифрой
+    private const string HoursDecPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_ButtonDown";       // левая стрелка
+    private const string HoursIncPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/NumberOption(Clone)/SR_ButtonUp/SR_BG";       // правая стрелка
+    private const string AdjastTimeButtonPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)/ActionOption(Clone)/SR_BG";       //Adjast
     
     
-    private const string DropDownListResources = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown";       // стрелка выподения списка ресурсов
-    private const string SkipitsResource = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown/Dropdown List/Viewport/Content/Item 58: SkipAds";       
-    private const string InputRecourcesPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_Contents";       
-    private const string AddButtonResources = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/ActionOption(Clone)[1]";       
+    //ресурсы
+    private const string recourceDecPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_ButtonDown/SR_BG";       // левая стрелка
+    private const string recourceIncPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_ButtonUp/SR_BG";       // правая стрелка
+    private const string DropDownListResources = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown";       // стрелка выподения списка ресурсов
+    private const string SkipitsResource = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown/Dropdown List/Viewport/Content/Item 58: SkipAds";       
+    private const string InputRecourcesPath = 
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_Contents";       
+    private const string AddButtonResources =
+        "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/ActionOption(Clone)[1]";       
     
-    // private const string GoldInputPath = "/Canvas/.../GoldInput";
-    // private const string AddGoldButtonPath = "/Canvas/.../AddGoldButton";
-    // private const string CloseButtonPath = "/Canvas/.../Close";
+
     
     public CheatPanelPage(AltDriver driver) : base(driver) { }
     public void Open()
@@ -43,7 +60,7 @@ public class CheatPanelPage: BasePage
     public void AssertHoursStepperResponds()
     {
         var dec = AltDriver.WaitForObject(By.PATH, HoursDecPath, timeout: 10);
-        var inc = AltDriver.WaitForObject(By.NAME, "SR_ButtonUp", timeout: 10);
+        var inc = AltDriver.WaitForObject(By.PATH,HoursIncPath , timeout: 10);
         var label = AltDriver.WaitForObject(By.PATH, HoursValuePath, timeout: 10);
         
         Assert.That(dec.enabled, Is.True, $"Кнопка 'SR_ButtonDown' не активна — чит-панель не готова");
@@ -78,8 +95,9 @@ public class CheatPanelPage: BasePage
     }
 
 
-    public void AddSkipits()
+    public void AddSkipits(int amountSkipits)
     {
+        Open();
         var arrow = AltDriver.WaitForObject(By.PATH, DropDownListResources, timeout: 15);
         arrow.Tap();
         Thread.Sleep(500);
@@ -88,22 +106,43 @@ public class CheatPanelPage: BasePage
         var skipits = AltDriver.WaitForObject(By.PATH, SkipitsResource, timeout: 15);
         skipits.Tap();
         Thread.Sleep(500);
-        
+
         var input = AltDriver.WaitForObject(By.PATH, InputRecourcesPath, timeout: 15);
-        //input.Tap();   
-        // input.SetComponentProperty(
-        //     "TMPro.TMP_InputField",
-        //     "Text",
-        //     "5000",
-        //     "Unity.UI.Text");
+        input.SetText(amountSkipits.ToString());
         
-        input.SetText("5000");
+        Thread.Sleep(1000);
+        var inc = AltDriver.WaitForObject(By.PATH, recourceIncPath, timeout: 15);
+        var dec = AltDriver.WaitForObject(By.PATH, recourceDecPath, timeout: 15);
+        inc.Tap(); 
+        Thread.Sleep(500);
+        dec.Tap();
         Thread.Sleep(2000);
         
         var add = AltDriver.WaitForObject(By.PATH, AddButtonResources, timeout: 15);
         add.Tap();           
+    }
+
+    public void AddTimeDay(int amountHours)
+    {
+        Open();
+        var dec = AltDriver.WaitForObject(By.PATH, HoursDecPath, timeout: 10);
+        var inc = AltDriver.WaitForObject(By.PATH, HoursIncPath, timeout: 10);
+        var input = AltDriver.WaitForObject(By.PATH, HoursValuePath, timeout: 10);
         
+        input.SetText(amountHours.ToString());
+        inc.Tap(); 
+        Thread.Sleep(500);
+        dec.Tap();
+        Thread.Sleep(2000);
+        
+        var add = AltDriver.WaitForObject(By.PATH, AdjastTimeButtonPath, timeout: 10);
+        add.Tap();  
+    }
+
+    public void Close()
+    {
+        var close = AltDriver.WaitForObject(By.PATH, CloseCheatButtonPath, timeout: 10);
+        close.Tap();  
     }
     
-
 }

@@ -27,17 +27,21 @@ public class MainMenuGrouping
 
     [Test]
     [CancelAfter(600_000)]
-    public void CompleteStarterTutorial()
+    public void CheckStickmanTv()
     {
+        var addSkipits = 500;
+        var addHour = 24;
+        
         var page = new MainMenuPage(altDriver!);
         var cheatPanel = new CheatPanelPage(altDriver!);
         
-        cheatPanel.Open();
-        Thread.Sleep(500);
-        cheatPanel.AddSkipits();
-        
-        
-       
+        cheatPanel.AddSkipits(addSkipits);
+        Thread.Sleep(1000);
+        cheatPanel.AddTimeDay(addHour);
+        Thread.Sleep(1000);
+        cheatPanel.Close();
+        Thread.Sleep(1000);
+        page.StickmanTVTest();
        
     }
 }
