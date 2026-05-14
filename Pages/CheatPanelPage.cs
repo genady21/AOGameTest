@@ -22,7 +22,7 @@ public class CheatPanelPage: BasePage
     
     private const string DropDownListResources = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown";       // стрелка выподения списка ресурсов
     private const string SkipitsResource = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/DropDownOption(Clone)/Dropdown/Dropdown List/Viewport/Content/Item 58: SkipAds";       
-    private const string InputRecourcesPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_Contents/SR_Label";       
+    private const string InputRecourcesPath = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/NumberOption(Clone)/SR_Contents";       
     private const string AddButtonResources = "/SRDebugger/Panel/SR_Canvas/SR_Content/SR_Main/SR_Tab/Options(Clone)/SR_OptionsContent/SR_Viewport/SR_Content/TabContainer(Clone)[5]/Category(Clone)[2]/ActionOption(Clone)[1]";       
     
     // private const string GoldInputPath = "/Canvas/.../GoldInput";
@@ -32,7 +32,7 @@ public class CheatPanelPage: BasePage
     public CheatPanelPage(AltDriver driver) : base(driver) { }
     public void Open()
     {
-        var btn = AltDriver.WaitForObject(By.PATH, OpenCheatButtonPath, timeout: 15);
+        AltObject? btn = AltDriver.WaitForObject(By.PATH, OpenCheatButtonPath, timeout: 15);
         for (var i = 0; i < 3; i++)
         {
             btn.Tap();
@@ -97,7 +97,7 @@ public class CheatPanelPage: BasePage
         //     "5000",
         //     "Unity.UI.Text");
         
-        //input.SetText("5000");
+        input.SetText("5000");
         Thread.Sleep(2000);
         
         var add = AltDriver.WaitForObject(By.PATH, AddButtonResources, timeout: 15);
